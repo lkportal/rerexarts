@@ -25,3 +25,4 @@ D:\Usuario\Documentos\RerexArts\Estoque\EstoqueProdutos\obj\Release\net8.0-windo
 D:\Usuario\Documentos\RerexArts\Estoque\EstoqueProdutos\obj\Release\net8.0-windows\EstoqueProdutos.genruntimeconfig.cache
 D:\Usuario\Documentos\RerexArts\Estoque\EstoqueProdutos\obj\Release\net8.0-windows\ref\EstoqueProdutos.dll
 D:\Usuario\Documentos\RerexArts\Estoque\EstoqueProdutos\bin\Release\net8.0-windows\EstoqueProdutos.dll.config
+D:\Usuario\Documentos\RerexArts\Estoque\EstoqueProdutos\obj\Release\net8.0-windows\EstoqueProdutos.Properties.Resources.resources

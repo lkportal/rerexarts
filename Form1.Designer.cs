@@ -334,7 +334,7 @@
             // 
             // btnExcluir
             // 
-            btnExcluir.Location = new Point(648, 90);
+            btnExcluir.Location = new Point(829, 39);
             btnExcluir.Name = "btnExcluir";
             btnExcluir.Size = new Size(141, 34);
             btnExcluir.TabIndex = 5;
@@ -349,13 +349,12 @@
             lista.BackgroundColor = SystemColors.ButtonHighlight;
             lista.ColumnHeadersHeight = 50;
             lista.Columns.AddRange(new DataGridViewColumn[] { nome, valor, validade, quantidade, categoria, codProduto });
-            lista.Dock = DockStyle.Bottom;
-            lista.Location = new Point(0, 130);
+            lista.Location = new Point(0, 82);
             lista.Name = "lista";
             lista.RowHeadersWidth = 62;
             lista.RowTemplate.Height = 50;
             lista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            lista.Size = new Size(978, 393);
+            lista.Size = new Size(978, 441);
             lista.TabIndex = 4;
             // 
             // nome
@@ -396,7 +395,7 @@
             // 
             // btnTrazendoTodosProdutos
             // 
-            btnTrazendoTodosProdutos.Location = new Point(8, 90);
+            btnTrazendoTodosProdutos.Location = new Point(682, 39);
             btnTrazendoTodosProdutos.Name = "btnTrazendoTodosProdutos";
             btnTrazendoTodosProdutos.Size = new Size(141, 34);
             btnTrazendoTodosProdutos.TabIndex = 3;

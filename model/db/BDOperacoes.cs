@@ -49,6 +49,8 @@ namespace EstoqueProdutos.model.db {
                         valor.Text = "";
                         quantidade.Text = "";
                         categoria.Text = "";
+                        valorVenda.Text = "";
+                        valorCompra.Text = "";
                     }
                 }
 
