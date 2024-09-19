@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace EstoqueProdutos.model.db {
 
         private static Produtos produtos;
 
-        public static string url = @"Server =DESKTOP-ONN8FDK\SQLEXPRESS;Database=rerexarts;Trusted_Connection=True;";
+        public static string url = ConfigurationManager.ConnectionStrings["MinhaStringConexao"].ConnectionString;
 
         public static void InserirDadosTable(TextBox nome, TextBox valor, DateTimePicker validade, TextBox quantidade, ComboBox categoria,TextBox valorVenda,TextBox valorCompra) {
             query = "INSERT INTO  PRODUTOS (nome,valorunidade,datavalidade,quantidade,categoria,codproduto,valorvenda,valorcompra) values (" +
