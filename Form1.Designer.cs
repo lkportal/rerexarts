@@ -30,12 +30,10 @@
             components = new System.ComponentModel.Container();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            panel2 = new Panel();
-            txtDesconto = new TextBox();
             label9 = new Label();
-            txtxAcrescimo = new TextBox();
             label8 = new Label();
-            label7 = new Label();
+            txtCompra = new TextBox();
+            txtVenda = new TextBox();
             panel1 = new Panel();
             btnAddcategoria = new Button();
             txtAddCategoria = new TextBox();
@@ -53,6 +51,9 @@
             txtNome = new TextBox();
             tabPage2 = new TabPage();
             tabPage3 = new TabPage();
+            label7 = new Label();
+            cbBusca = new ComboBox();
+            btnExcluir = new Button();
             lista = new DataGridView();
             nome = new DataGridViewTextBoxColumn();
             valor = new DataGridViewTextBoxColumn();
@@ -66,10 +67,8 @@
             InformacaoCategoria = new ToolTip(components);
             toolTip2 = new ToolTip(components);
             Desconto = new ToolTip(components);
-            btnExcluir = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            panel2.SuspendLayout();
             panel1.SuspendLayout();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)lista).BeginInit();
@@ -84,12 +83,15 @@
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(805, 561);
+            tabControl1.Size = new Size(986, 561);
             tabControl1.TabIndex = 0;
             // 
             // tabPage1
             // 
-            tabPage1.Controls.Add(panel2);
+            tabPage1.Controls.Add(label9);
+            tabPage1.Controls.Add(label8);
+            tabPage1.Controls.Add(txtCompra);
+            tabPage1.Controls.Add(txtVenda);
             tabPage1.Controls.Add(panel1);
             tabPage1.Controls.Add(btnCadastra);
             tabPage1.Controls.Add(label5);
@@ -105,68 +107,46 @@
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(797, 523);
+            tabPage1.Size = new Size(978, 523);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Adiciona Produto";
             tabPage1.UseVisualStyleBackColor = true;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(txtDesconto);
-            panel2.Controls.Add(label9);
-            panel2.Controls.Add(txtxAcrescimo);
-            panel2.Controls.Add(label8);
-            panel2.Controls.Add(label7);
-            panel2.Location = new Point(358, 162);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(428, 217);
-            panel2.TabIndex = 12;
-            // 
-            // txtDesconto
-            // 
-            txtDesconto.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            txtDesconto.Location = new Point(6, 151);
-            txtDesconto.Name = "txtDesconto";
-            txtDesconto.Size = new Size(233, 37);
-            txtDesconto.TabIndex = 15;
-            Desconto.SetToolTip(txtDesconto, "Se houver disconto, caso não, deixe em branco");
-            // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 120);
+            label9.Location = new Point(359, 237);
             label9.Name = "label9";
-            label9.Size = new Size(190, 25);
-            label9.TabIndex = 14;
-            label9.Text = "Desconto Por Unidade";
-            // 
-            // txtxAcrescimo
-            // 
-            txtxAcrescimo.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            txtxAcrescimo.Location = new Point(4, 75);
-            txtxAcrescimo.Name = "txtxAcrescimo";
-            txtxAcrescimo.Size = new Size(233, 37);
-            txtxAcrescimo.TabIndex = 13;
+            label9.Size = new Size(121, 25);
+            label9.TabIndex = 15;
+            label9.Text = "Valor Compra";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(4, 42);
-            label8.Margin = new Padding(5, 5, 3, 0);
+            label8.Location = new Point(358, 158);
             label8.Name = "label8";
-            label8.Size = new Size(196, 25);
-            label8.TabIndex = 13;
-            label8.Text = "Acrescimo Por Unidade";
+            label8.Size = new Size(170, 25);
+            label8.TabIndex = 14;
+            label8.Text = "Porcentagem Venda";
             // 
-            // label7
+            // txtCompra
             // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label7.Location = new Point(4, 4);
-            label7.Name = "label7";
-            label7.Size = new Size(268, 32);
-            label7.TabIndex = 0;
-            label7.Text = "Informação de vendas";
+            txtCompra.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            txtCompra.Location = new Point(359, 265);
+            txtCompra.Name = "txtCompra";
+            txtCompra.Size = new Size(233, 37);
+            txtCompra.TabIndex = 13;
+            txtCompra.KeyPress += txtCompra_KeyPress;
+            // 
+            // txtVenda
+            // 
+            txtVenda.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            txtVenda.Location = new Point(359, 192);
+            txtVenda.Name = "txtVenda";
+            txtVenda.Size = new Size(233, 37);
+            txtVenda.TabIndex = 12;
+            txtVenda.KeyPress += txtVenda_KeyPress;
             // 
             // panel1
             // 
@@ -314,13 +294,15 @@
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(797, 523);
+            tabPage2.Size = new Size(978, 523);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Vendas";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
+            tabPage3.Controls.Add(label7);
+            tabPage3.Controls.Add(cbBusca);
             tabPage3.Controls.Add(btnExcluir);
             tabPage3.Controls.Add(lista);
             tabPage3.Controls.Add(btnTrazendoTodosProdutos);
@@ -328,10 +310,37 @@
             tabPage3.Controls.Add(textBox4);
             tabPage3.Location = new Point(4, 34);
             tabPage3.Name = "tabPage3";
-            tabPage3.Size = new Size(797, 523);
+            tabPage3.Size = new Size(978, 523);
             tabPage3.TabIndex = 2;
             tabPage3.Text = "Informaçoes";
             tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(257, 14);
+            label7.Name = "label7";
+            label7.Size = new Size(171, 25);
+            label7.TabIndex = 7;
+            label7.Text = "Busca por Categoria";
+            // 
+            // cbBusca
+            // 
+            cbBusca.FormattingEnabled = true;
+            cbBusca.Location = new Point(257, 43);
+            cbBusca.Name = "cbBusca";
+            cbBusca.Size = new Size(182, 33);
+            cbBusca.TabIndex = 6;
+            // 
+            // btnExcluir
+            // 
+            btnExcluir.Location = new Point(648, 90);
+            btnExcluir.Name = "btnExcluir";
+            btnExcluir.Size = new Size(141, 34);
+            btnExcluir.TabIndex = 5;
+            btnExcluir.Text = "Excluir ";
+            btnExcluir.UseVisualStyleBackColor = true;
+            btnExcluir.Click += btnExcluir_Click;
             // 
             // lista
             // 
@@ -346,7 +355,7 @@
             lista.RowHeadersWidth = 62;
             lista.RowTemplate.Height = 50;
             lista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            lista.Size = new Size(797, 393);
+            lista.Size = new Size(978, 393);
             lista.TabIndex = 4;
             // 
             // nome
@@ -444,21 +453,11 @@
             Desconto.ToolTipIcon = ToolTipIcon.Info;
             Desconto.ToolTipTitle = "Informação Qunatidade";
             // 
-            // btnExcluir
-            // 
-            btnExcluir.Location = new Point(648, 90);
-            btnExcluir.Name = "btnExcluir";
-            btnExcluir.Size = new Size(141, 34);
-            btnExcluir.TabIndex = 5;
-            btnExcluir.Text = "Excluir ";
-            btnExcluir.UseVisualStyleBackColor = true;
-            btnExcluir.Click += btnExcluir_Click;
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(805, 561);
+            ClientSize = new Size(986, 561);
             Controls.Add(tabControl1);
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
@@ -468,8 +467,6 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             tabPage3.ResumeLayout(false);
@@ -497,13 +494,7 @@
         private ToolTip InformacaoCategoria;
         private ToolTip toolTip2;
         private Button btnCadastra;
-        private Panel panel2;
-        private TextBox txtDesconto;
         private ToolTip Desconto;
-        private Label label9;
-        private TextBox txtxAcrescimo;
-        private Label label8;
-        private Label label7;
         private Panel panel1;
         private Button btnAddcategoria;
         private TextBox txtAddCategoria;
@@ -519,5 +510,11 @@
         private DataGridViewTextBoxColumn categoria;
         private DataGridViewTextBoxColumn codProduto;
         private Button btnExcluir;
+        private ComboBox cbBusca;
+        private Label label7;
+        private Label label8;
+        private TextBox txtCompra;
+        private TextBox txtVenda;
+        private Label label9;
     }
 }

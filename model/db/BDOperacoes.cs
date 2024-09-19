@@ -20,26 +20,34 @@ namespace EstoqueProdutos.model.db {
 
         public static string url = @"Server =DESKTOP-ONN8FDK\SQLEXPRESS;Database=rerexarts;Trusted_Connection=True;";
 
-        public static void InserirDadosTable(TextBox nome, TextBox valor, DateTimePicker validade, TextBox quantidade, ComboBox categoria) {
-            query = "INSERT INTO  PRODUTOS (nome,valorunidade,datavalidade,quantidade,categoria,codproduto) values (" +
-                "@nome,@valorunidade,@datavalidade,@quantidade,@categoria,@cod)";
+        public static void InserirDadosTable(TextBox nome, TextBox valor, DateTimePicker validade, TextBox quantidade, ComboBox categoria,TextBox valorVenda,TextBox valorCompra) {
+            query = "INSERT INTO  PRODUTOS (nome,valorunidade,datavalidade,quantidade,categoria,codproduto,valorvenda,valorcompra) values (" +
+                "@nome,@valorunidade,@datavalidade,@quantidade,@categoria,@cod,@venda,@comprar)";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
                     try {
+                        var vl = Produtos.ValorVendaPorcetagem(valorVenda, valor);
                         con.Open();
-                        produtos = Produtos.VerificandoCampos(nome, valor, quantidade, categoria, validade);
+                        produtos = Produtos.VerificandoCampos(nome, valor, quantidade, categoria, validade,valorCompra,valorVenda);
                         cmd.Parameters.AddWithValue("@nome", produtos.Nome);
                         cmd.Parameters.AddWithValue("@valorunidade", produtos.PrecoUnidade);
                         cmd.Parameters.AddWithValue("@datavalidade", produtos.Validade);
                         cmd.Parameters.AddWithValue("@quantidade", produtos.Quantidade);
                         cmd.Parameters.AddWithValue("@categoria", produtos.Categoria);
                         cmd.Parameters.AddWithValue("@cod", produtos.CodigoProdutos);
+                        cmd.Parameters.AddWithValue("@comprar", produtos.ValorComprar);
+                        cmd.Parameters.AddWithValue("@venda", vl);
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Produto Inserido");
 
                     } catch (Exception ex) {
                         MessageBox.Show(ex.Message);
 
+                    } finally {
+                        nome.Text = "";
+                        valor.Text = "";
+                        quantidade.Text = "";
+                        categoria.Text = "";
                     }
                 }
 
@@ -68,7 +76,7 @@ namespace EstoqueProdutos.model.db {
         }
 
         public static void TrazendoTodosProdutos(DataGridView lista) {
-            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto FROM PRODUTOS";
+            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,valorvenda as '%',(quantidade * valorunidade) as Total FROM PRODUTOS";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
                     con.Open();
@@ -93,8 +101,16 @@ namespace EstoqueProdutos.model.db {
             }
         }
 
-        public static void ExcluirDado(DataGridView lista) {
-          
+        public static void ExcluirDado(string cod) {
+            query = "Delete from produtos where codproduto = @cod";
+            using (con = new SqlConnection(url)) {
+                using (cmd = new SqlCommand(query,con)) {
+                    con.Open();
+                    cmd.Parameters.AddWithValue("@cod", cod);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Produto Excluido");
+                }
+            }
         }
     }
 }
