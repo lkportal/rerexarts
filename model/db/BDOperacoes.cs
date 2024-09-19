@@ -80,22 +80,26 @@ namespace EstoqueProdutos.model.db {
             query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,valorvenda as '%',(quantidade * valorunidade) as Total FROM PRODUTOS";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
-                    con.Open();
-                    reader = cmd.ExecuteReader();
-                    object[] rows = new object[reader.FieldCount];
-                    if (reader.HasRows) {
+                    try {
+                        con.Open();
+                        reader = cmd.ExecuteReader();
+                        object[] rows = new object[reader.FieldCount];
+                        if (reader.HasRows) {
 
-                        lista.Columns.Clear();
-                         for(int i=0; i<reader.FieldCount; i++) {
-                            lista.Columns.Add(reader.GetName(i),reader.GetName(i));
-                        }
-                        while (reader.Read()) {
+                            lista.Columns.Clear();
                             for (int i = 0; i < reader.FieldCount; i++) {
-                                rows[i] = reader.GetValue(i);
+                                lista.Columns.Add(reader.GetName(i), reader.GetName(i));
                             }
-                            lista.Rows.Add(rows);
-                        }
+                            while (reader.Read()) {
+                                for (int i = 0; i < reader.FieldCount; i++) {
+                                    rows[i] = reader.GetValue(i);
+                                }
+                                lista.Rows.Add(rows);
+                            }
 
+                        }
+                    } catch(Exception ex) {
+                        MessageBox.Show(ex.Message);    
                     }
 
                 }
@@ -106,10 +110,15 @@ namespace EstoqueProdutos.model.db {
             query = "Delete from produtos where codproduto = @cod";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query,con)) {
-                    con.Open();
-                    cmd.Parameters.AddWithValue("@cod", cod);
-                    cmd.ExecuteNonQuery();
-                    MessageBox.Show("Produto Excluido");
+                    try{
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@cod", cod);
+                        cmd.ExecuteNonQuery();
+                        MessageBox.Show("Produto Excluido");
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    }
+                    
                 }
             }
         }
