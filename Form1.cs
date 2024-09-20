@@ -19,13 +19,15 @@ namespace EstoqueProdutos
         private void Form1_Load(object sender, EventArgs e) {
             BDOperacoes.TrazendoCategoria(cbCategoria);
             BDOperacoes.TrazendoCategoria(cbBusca);
+            BDOperacoes.RelatorioTotalProdutos(labelTotalProduto);
+
 
         }
 
-        private void btnCadastra_Click(object sender, EventArgs e) {
+        private  void btnCadastra_Click(object sender, EventArgs e) {
 
             BDOperacoes.InserirDadosTable(txtNome, txtValor, dtValidade, txtQuantidade, cbCategoria, txtVenda, txtCompra);
-
+            BDOperacoes.RelatorioTotalProdutos(labelTotalProduto);   
         }
 
         private void btnAddcategoria_Click(object sender, EventArgs e) {
@@ -123,7 +125,7 @@ namespace EstoqueProdutos
             else {
                 MessageBox.Show("Informe a quantidade, se for 0 informe");
             }
-            
+
         }
     }
 }

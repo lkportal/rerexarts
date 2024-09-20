@@ -150,9 +150,9 @@
             label8.AutoSize = true;
             label8.Location = new Point(358, 158);
             label8.Name = "label8";
-            label8.Size = new Size(170, 25);
+            label8.Size = new Size(72, 25);
             label8.TabIndex = 14;
-            label8.Text = "Porcentagem Venda";
+            label8.Text = "Valor %";
             // 
             // txtCompra
             // 
@@ -364,9 +364,9 @@
             // 
             // listaVendas
             // 
+            listaVendas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             listaVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             listaVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            listaVendas.Dock = DockStyle.Bottom;
             listaVendas.Location = new Point(3, 77);
             listaVendas.Name = "listaVendas";
             listaVendas.RowHeadersWidth = 62;
@@ -467,6 +467,7 @@
             // 
             // lista
             // 
+            lista.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             lista.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             lista.BackgroundColor = SystemColors.ButtonHighlight;

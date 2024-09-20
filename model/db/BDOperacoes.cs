@@ -10,7 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace EstoqueProdutos.model.db {
-    internal class BDOperacoes {
+   internal partial class  BDOperacoes {
 
         private SqlDataAdapter DataAdapter;
         private static SqlCommand cmd;
@@ -213,5 +213,30 @@ namespace EstoqueProdutos.model.db {
                 }
             }
         }
+
+        public static void RelatorioTotalProdutos(Label text) {
+            query = "select count(*) as Total from Produtos";
+            using (con = new SqlConnection(url)) {
+                using (cmd = new SqlCommand(query, con)) {
+                    con.Open();
+                    reader = cmd.ExecuteReader();
+                    if (reader.Read()) {
+                        string total = reader.GetValue(0).ToString();
+                        if (text.InvokeRequired) {
+                            text.Invoke(new Action(() => text.Text = total));
+                        }
+                        else {
+                            text.Text = total;
+                        }
+                    }
+                    else {
+                        MessageBox.Show("Erro ao mostra a quantidade de produtos");
+                    }
+                    
+                }
+            }
+        }
+
+       
     }
 }
