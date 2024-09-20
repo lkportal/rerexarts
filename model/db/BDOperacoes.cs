@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,6 +18,7 @@ namespace EstoqueProdutos.model.db {
         private static DataTable DataTable;
         private static SqlConnection con;
         private static string query;
+        private static string Auxiliar;
 
         private static Produtos produtos;
 
@@ -163,13 +165,51 @@ namespace EstoqueProdutos.model.db {
                 using (cmd = new SqlCommand(query, con)) {
                     try {
                         con.Open();
-                        cmd.Parameters.AddWithValue("@cod", cod.Text);
+                        if(Auxiliar == "") {
+                            MessageBox.Show("Busque pelo codigo do produto");
+                            return;
+                        }
+                        cmd.Parameters.AddWithValue("@cod", Auxiliar);
                         cmd.Parameters.AddWithValue("@vendida", vendida.Text);
                         cmd.ExecuteNonQuery();
+                        MessageBox.Show("Quantidade Atualizada");
 
                     }catch(Exception ex) {
                         MessageBox.Show(ex.Message);
                     }
+                }
+            }
+        }
+
+        public static void TrazeTodosProdutosPorCodigo(DataGridView lista, TextBox cod) {
+            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,valorvenda as '%',(quantidade * valorunidade) as Total FROM PRODUTOS where codProduto = @cod";
+            using (con = new SqlConnection(url)) {
+                using (cmd = new SqlCommand(query, con)) {
+                    try {
+                        con.Open();
+                        Auxiliar = cod.Text;
+                        cmd.Parameters.AddWithValue("@cod",cod.Text);
+                        reader = cmd.ExecuteReader();
+                        
+                        object[] rows = new object[reader.FieldCount];
+                        if (reader.HasRows) {
+
+                            lista.Columns.Clear();
+                            for (int i = 0; i < reader.FieldCount; i++) {
+                                lista.Columns.Add(reader.GetName(i), reader.GetName(i));
+                            }
+                            while (reader.Read()) {
+                                for (int i = 0; i < reader.FieldCount; i++) {
+                                    rows[i] = reader.GetValue(i);
+                                }
+                                lista.Rows.Add(rows);
+                            }
+
+                        }
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    }
+
                 }
             }
         }

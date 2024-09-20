@@ -50,6 +50,9 @@
             txtValor = new TextBox();
             txtNome = new TextBox();
             tabPage2 = new TabPage();
+            btnAtualizaporcetagem = new Button();
+            btnAtualizaQuantidade = new Button();
+            btnBuscaVendas = new Button();
             listaVendas = new DataGridView();
             label17 = new Label();
             txtVendidosUp = new TextBox();
@@ -83,9 +86,6 @@
             InformacaoCategoria = new ToolTip(components);
             toolTip2 = new ToolTip(components);
             Desconto = new ToolTip(components);
-            btnBuscaVendas = new Button();
-            btnAtualizaQuantidade = new Button();
-            btnAtualizaporcetagem = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
@@ -333,8 +333,38 @@
             tabPage2.Text = "Vendas";
             tabPage2.UseVisualStyleBackColor = true;
             // 
+            // btnAtualizaporcetagem
+            // 
+            btnAtualizaporcetagem.Location = new Point(852, 34);
+            btnAtualizaporcetagem.Name = "btnAtualizaporcetagem";
+            btnAtualizaporcetagem.Size = new Size(112, 34);
+            btnAtualizaporcetagem.TabIndex = 10;
+            btnAtualizaporcetagem.Text = "Atualizar";
+            btnAtualizaporcetagem.UseVisualStyleBackColor = true;
+            // 
+            // btnAtualizaQuantidade
+            // 
+            btnAtualizaQuantidade.Location = new Point(515, 38);
+            btnAtualizaQuantidade.Name = "btnAtualizaQuantidade";
+            btnAtualizaQuantidade.Size = new Size(112, 34);
+            btnAtualizaQuantidade.TabIndex = 9;
+            btnAtualizaQuantidade.Text = "Atualizar";
+            btnAtualizaQuantidade.UseVisualStyleBackColor = true;
+            btnAtualizaQuantidade.Click += btnAtualizaQuantidade_Click;
+            // 
+            // btnBuscaVendas
+            // 
+            btnBuscaVendas.Location = new Point(164, 37);
+            btnBuscaVendas.Name = "btnBuscaVendas";
+            btnBuscaVendas.Size = new Size(112, 34);
+            btnBuscaVendas.TabIndex = 8;
+            btnBuscaVendas.Text = "Buscar";
+            btnBuscaVendas.UseVisualStyleBackColor = true;
+            btnBuscaVendas.Click += btnBuscaVendas_Click;
+            // 
             // listaVendas
             // 
+            listaVendas.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             listaVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             listaVendas.Dock = DockStyle.Bottom;
             listaVendas.Location = new Point(3, 77);
@@ -444,6 +474,7 @@
             lista.Columns.AddRange(new DataGridViewColumn[] { nome, valor, validade, quantidade, categoria, codProduto });
             lista.Location = new Point(0, 82);
             lista.Name = "lista";
+            lista.ReadOnly = true;
             lista.RowHeadersWidth = 62;
             lista.RowTemplate.Height = 50;
             lista.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -455,36 +486,42 @@
             nome.HeaderText = "Nome";
             nome.MinimumWidth = 8;
             nome.Name = "nome";
+            nome.ReadOnly = true;
             // 
             // valor
             // 
             valor.HeaderText = "ValorUnidade";
             valor.MinimumWidth = 8;
             valor.Name = "valor";
+            valor.ReadOnly = true;
             // 
             // validade
             // 
             validade.HeaderText = "dataValidade";
             validade.MinimumWidth = 8;
             validade.Name = "validade";
+            validade.ReadOnly = true;
             // 
             // quantidade
             // 
             quantidade.HeaderText = "Quantidade";
             quantidade.MinimumWidth = 8;
             quantidade.Name = "quantidade";
+            quantidade.ReadOnly = true;
             // 
             // categoria
             // 
             categoria.HeaderText = "Categoria";
             categoria.MinimumWidth = 8;
             categoria.Name = "categoria";
+            categoria.ReadOnly = true;
             // 
             // codProduto
             // 
             codProduto.HeaderText = "CodigoProduto";
             codProduto.MinimumWidth = 8;
             codProduto.Name = "codProduto";
+            codProduto.ReadOnly = true;
             // 
             // btnTrazendoTodosProdutos
             // 
@@ -637,33 +674,6 @@
             Desconto.ShowAlways = true;
             Desconto.ToolTipIcon = ToolTipIcon.Info;
             Desconto.ToolTipTitle = "Informação Qunatidade";
-            // 
-            // btnBuscaVendas
-            // 
-            btnBuscaVendas.Location = new Point(164, 37);
-            btnBuscaVendas.Name = "btnBuscaVendas";
-            btnBuscaVendas.Size = new Size(112, 34);
-            btnBuscaVendas.TabIndex = 8;
-            btnBuscaVendas.Text = "Buscar";
-            btnBuscaVendas.UseVisualStyleBackColor = true;
-            // 
-            // btnAtualizaQuantidade
-            // 
-            btnAtualizaQuantidade.Location = new Point(515, 38);
-            btnAtualizaQuantidade.Name = "btnAtualizaQuantidade";
-            btnAtualizaQuantidade.Size = new Size(112, 34);
-            btnAtualizaQuantidade.TabIndex = 9;
-            btnAtualizaQuantidade.Text = "Atualizar";
-            btnAtualizaQuantidade.UseVisualStyleBackColor = true;
-            // 
-            // btnAtualizaporcetagem
-            // 
-            btnAtualizaporcetagem.Location = new Point(852, 34);
-            btnAtualizaporcetagem.Name = "btnAtualizaporcetagem";
-            btnAtualizaporcetagem.Size = new Size(112, 34);
-            btnAtualizaporcetagem.TabIndex = 10;
-            btnAtualizaporcetagem.Text = "Atualizar";
-            btnAtualizaporcetagem.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 

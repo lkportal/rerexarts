@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 namespace EstoqueProdutos
 {
     public partial class Form1 : Form {
-     
+
         public Form1() {
             InitializeComponent();
         }
@@ -100,8 +100,29 @@ namespace EstoqueProdutos
         }
 
         private void cbBusca_SelectedIndexChanged(object sender, EventArgs e) {
-           
+
             BDOperacoes.buscaCategoria(cbBusca, lista);
+
+        }
+
+        private void btnBuscaVendas_Click(object sender, EventArgs e) {
+            if (!string.IsNullOrEmpty(txtVendaCodProduto.Text)) {
+                BDOperacoes.TrazeTodosProdutosPorCodigo(listaVendas, txtVendaCodProduto);
+            }
+            else {
+                MessageBox.Show("Informe o codigo do produto, o codigo do produto pode ser obtido na aba informação > e no botão mostra todos", "Aviso");
+
+            }
+        }
+
+        private void btnAtualizaQuantidade_Click(object sender, EventArgs e) {
+            if (!string.IsNullOrEmpty(txtVendidosUp.Text)) {
+                BDOperacoes.VendaProduto(txtVendaCodProduto, txtVendidosUp);
+                txtVendidosUp.Text = "";
+            }
+            else {
+                MessageBox.Show("Informe a quantidade, se for 0 informe");
+            }
             
         }
     }
