@@ -7,11 +7,7 @@ using System.Data.SqlClient;
 namespace EstoqueProdutos
 {
     public partial class Form1 : Form {
-        SqlDataReader reader;
-        SqlDataAdapter adpater;
-        DataTable DataTable;
-        SqlCommand cmd;
-        string query;
+     
         public Form1() {
             InitializeComponent();
         }
@@ -22,10 +18,12 @@ namespace EstoqueProdutos
 
         private void Form1_Load(object sender, EventArgs e) {
             BDOperacoes.TrazendoCategoria(cbCategoria);
+            BDOperacoes.TrazendoCategoria(cbBusca);
+
         }
 
         private void btnCadastra_Click(object sender, EventArgs e) {
-         
+
             BDOperacoes.InserirDadosTable(txtNome, txtValor, dtValidade, txtQuantidade, cbCategoria, txtVenda, txtCompra);
 
         }
@@ -70,6 +68,7 @@ namespace EstoqueProdutos
                 var cod = lista.Rows[valor].Cells["codProduto"].Value;
                 BDOperacoes.ExcluirDado(cod.ToString());
                 lista.Rows.Clear();
+                cbBusca.Text = "";
             }
 
         }
@@ -98,6 +97,12 @@ namespace EstoqueProdutos
                     e.Handled = true;
                 }
             }
+        }
+
+        private void cbBusca_SelectedIndexChanged(object sender, EventArgs e) {
+           
+            BDOperacoes.buscaCategoria(cbBusca, lista);
+            
         }
     }
 }

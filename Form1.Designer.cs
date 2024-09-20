@@ -50,6 +50,13 @@
             txtValor = new TextBox();
             txtNome = new TextBox();
             tabPage2 = new TabPage();
+            listaVendas = new DataGridView();
+            label17 = new Label();
+            txtVendidosUp = new TextBox();
+            label15 = new Label();
+            txtNumericoPorcetagemUp = new NumericUpDown();
+            label13 = new Label();
+            txtVendaCodProduto = new TextBox();
             tabPage3 = new TabPage();
             label7 = new Label();
             cbBusca = new ComboBox();
@@ -64,14 +71,30 @@
             btnTrazendoTodosProdutos = new Button();
             label10 = new Label();
             textBox4 = new TextBox();
+            tabPage4 = new TabPage();
+            labelQuantidadeVendida = new Label();
+            label16 = new Label();
+            labelSomaTotal = new Label();
+            label14 = new Label();
+            labelTotalGasto = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            labelTotalProduto = new Label();
             InformacaoCategoria = new ToolTip(components);
             toolTip2 = new ToolTip(components);
             Desconto = new ToolTip(components);
+            btnBuscaVendas = new Button();
+            btnAtualizaQuantidade = new Button();
+            btnAtualizaporcetagem = new Button();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
+            tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)listaVendas).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)txtNumericoPorcetagemUp).BeginInit();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)lista).BeginInit();
+            tabPage4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -79,6 +102,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 0);
             tabControl1.Name = "tabControl1";
@@ -291,6 +315,16 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(btnAtualizaporcetagem);
+            tabPage2.Controls.Add(btnAtualizaQuantidade);
+            tabPage2.Controls.Add(btnBuscaVendas);
+            tabPage2.Controls.Add(listaVendas);
+            tabPage2.Controls.Add(label17);
+            tabPage2.Controls.Add(txtVendidosUp);
+            tabPage2.Controls.Add(label15);
+            tabPage2.Controls.Add(txtNumericoPorcetagemUp);
+            tabPage2.Controls.Add(label13);
+            tabPage2.Controls.Add(txtVendaCodProduto);
             tabPage2.Location = new Point(4, 34);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -298,6 +332,64 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Vendas";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // listaVendas
+            // 
+            listaVendas.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            listaVendas.Dock = DockStyle.Bottom;
+            listaVendas.Location = new Point(3, 77);
+            listaVendas.Name = "listaVendas";
+            listaVendas.RowHeadersWidth = 62;
+            listaVendas.Size = new Size(972, 443);
+            listaVendas.TabIndex = 7;
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(331, 11);
+            label17.Name = "label17";
+            label17.Size = new Size(174, 25);
+            label17.TabIndex = 6;
+            label17.Text = "Quantidade Vendida";
+            // 
+            // txtVendidosUp
+            // 
+            txtVendidosUp.Location = new Point(331, 40);
+            txtVendidosUp.Name = "txtVendidosUp";
+            txtVendidosUp.Size = new Size(178, 31);
+            txtVendidosUp.TabIndex = 5;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(666, 9);
+            label15.Name = "label15";
+            label15.Size = new Size(106, 25);
+            label15.TabIndex = 4;
+            label15.Text = "Porcetagem";
+            // 
+            // txtNumericoPorcetagemUp
+            // 
+            txtNumericoPorcetagemUp.Location = new Point(666, 37);
+            txtNumericoPorcetagemUp.Name = "txtNumericoPorcetagemUp";
+            txtNumericoPorcetagemUp.Size = new Size(180, 31);
+            txtNumericoPorcetagemUp.TabIndex = 3;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(8, 12);
+            label13.Name = "label13";
+            label13.Size = new Size(141, 25);
+            label13.TabIndex = 1;
+            label13.Text = "Codigo Produto";
+            // 
+            // txtVendaCodProduto
+            // 
+            txtVendaCodProduto.Location = new Point(8, 40);
+            txtVendaCodProduto.Name = "txtVendaCodProduto";
+            txtVendaCodProduto.Size = new Size(150, 31);
+            txtVendaCodProduto.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -331,6 +423,7 @@
             cbBusca.Name = "cbBusca";
             cbBusca.Size = new Size(182, 33);
             cbBusca.TabIndex = 6;
+            cbBusca.SelectedIndexChanged += cbBusca_SelectedIndexChanged;
             // 
             // btnExcluir
             // 
@@ -345,7 +438,7 @@
             // lista
             // 
             lista.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            lista.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            lista.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             lista.BackgroundColor = SystemColors.ButtonHighlight;
             lista.ColumnHeadersHeight = 50;
             lista.Columns.AddRange(new DataGridViewColumn[] { nome, valor, validade, quantidade, categoria, codProduto });
@@ -419,6 +512,99 @@
             textBox4.Size = new Size(232, 31);
             textBox4.TabIndex = 1;
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(labelQuantidadeVendida);
+            tabPage4.Controls.Add(label16);
+            tabPage4.Controls.Add(labelSomaTotal);
+            tabPage4.Controls.Add(label14);
+            tabPage4.Controls.Add(labelTotalGasto);
+            tabPage4.Controls.Add(label11);
+            tabPage4.Controls.Add(label12);
+            tabPage4.Controls.Add(labelTotalProduto);
+            tabPage4.Location = new Point(4, 34);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Size = new Size(978, 523);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "Relatorio";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // labelQuantidadeVendida
+            // 
+            labelQuantidadeVendida.AutoSize = true;
+            labelQuantidadeVendida.Font = new Font("Segoe UI", 24F);
+            labelQuantidadeVendida.Location = new Point(341, 64);
+            labelQuantidadeVendida.Name = "labelQuantidadeVendida";
+            labelQuantidadeVendida.Size = new Size(54, 65);
+            labelQuantidadeVendida.TabIndex = 7;
+            labelQuantidadeVendida.Text = "0";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(290, 39);
+            label16.Name = "label16";
+            label16.Size = new Size(174, 25);
+            label16.TabIndex = 6;
+            label16.Text = "Quantidade Vendida";
+            // 
+            // labelSomaTotal
+            // 
+            labelSomaTotal.AutoSize = true;
+            labelSomaTotal.Font = new Font("Segoe UI", 24F);
+            labelSomaTotal.Location = new Point(135, 389);
+            labelSomaTotal.Name = "labelSomaTotal";
+            labelSomaTotal.Size = new Size(54, 65);
+            labelSomaTotal.TabIndex = 5;
+            labelSomaTotal.Text = "0";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(75, 332);
+            label14.Name = "label14";
+            label14.Size = new Size(178, 25);
+            label14.TabIndex = 4;
+            label14.Text = "Soma Total Produtos";
+            // 
+            // labelTotalGasto
+            // 
+            labelTotalGasto.AutoSize = true;
+            labelTotalGasto.Font = new Font("Segoe UI", 24F);
+            labelTotalGasto.Location = new Point(135, 217);
+            labelTotalGasto.Name = "labelTotalGasto";
+            labelTotalGasto.Size = new Size(54, 65);
+            labelTotalGasto.TabIndex = 3;
+            labelTotalGasto.Text = "0";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(91, 177);
+            label11.Name = "label11";
+            label11.Size = new Size(144, 25);
+            label11.TabIndex = 2;
+            label11.Text = "Valor gasto Total";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(91, 39);
+            label12.Name = "label12";
+            label12.Size = new Size(152, 25);
+            label12.TabIndex = 1;
+            label12.Text = "Total de Produtos";
+            // 
+            // labelTotalProduto
+            // 
+            labelTotalProduto.AutoSize = true;
+            labelTotalProduto.Font = new Font("Segoe UI", 24F);
+            labelTotalProduto.Location = new Point(135, 64);
+            labelTotalProduto.Name = "labelTotalProduto";
+            labelTotalProduto.Size = new Size(54, 65);
+            labelTotalProduto.TabIndex = 0;
+            labelTotalProduto.Text = "0";
+            // 
             // InformacaoCategoria
             // 
             InformacaoCategoria.AutomaticDelay = 5000;
@@ -452,6 +638,33 @@
             Desconto.ToolTipIcon = ToolTipIcon.Info;
             Desconto.ToolTipTitle = "Informação Qunatidade";
             // 
+            // btnBuscaVendas
+            // 
+            btnBuscaVendas.Location = new Point(164, 37);
+            btnBuscaVendas.Name = "btnBuscaVendas";
+            btnBuscaVendas.Size = new Size(112, 34);
+            btnBuscaVendas.TabIndex = 8;
+            btnBuscaVendas.Text = "Buscar";
+            btnBuscaVendas.UseVisualStyleBackColor = true;
+            // 
+            // btnAtualizaQuantidade
+            // 
+            btnAtualizaQuantidade.Location = new Point(515, 38);
+            btnAtualizaQuantidade.Name = "btnAtualizaQuantidade";
+            btnAtualizaQuantidade.Size = new Size(112, 34);
+            btnAtualizaQuantidade.TabIndex = 9;
+            btnAtualizaQuantidade.Text = "Atualizar";
+            btnAtualizaQuantidade.UseVisualStyleBackColor = true;
+            // 
+            // btnAtualizaporcetagem
+            // 
+            btnAtualizaporcetagem.Location = new Point(852, 34);
+            btnAtualizaporcetagem.Name = "btnAtualizaporcetagem";
+            btnAtualizaporcetagem.Size = new Size(112, 34);
+            btnAtualizaporcetagem.TabIndex = 10;
+            btnAtualizaporcetagem.Text = "Atualizar";
+            btnAtualizaporcetagem.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -468,9 +681,15 @@
             tabPage1.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)listaVendas).EndInit();
+            ((System.ComponentModel.ISupportInitialize)txtNumericoPorcetagemUp).EndInit();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)lista).EndInit();
+            tabPage4.ResumeLayout(false);
+            tabPage4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -515,5 +734,24 @@
         private TextBox txtCompra;
         private TextBox txtVenda;
         private Label label9;
+        private TabPage tabPage4;
+        private Label label16;
+        private Label labelSomaTotal;
+        private Label label14;
+        private Label labelTotalGasto;
+        private Label label11;
+        private Label label12;
+        private Label labelTotalProduto;
+        private Label labelQuantidadeVendida;
+        private Label label13;
+        private TextBox txtVendaCodProduto;
+        private Label label15;
+        private NumericUpDown txtNumericoPorcetagemUp;
+        private Label label17;
+        private TextBox txtVendidosUp;
+        private DataGridView listaVendas;
+        private Button btnAtualizaporcetagem;
+        private Button btnAtualizaQuantidade;
+        private Button btnBuscaVendas;
     }
 }

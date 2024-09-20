@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -121,6 +122,54 @@ namespace EstoqueProdutos.model.db {
                         MessageBox.Show(ex.Message);
                     }
                     
+                }
+            }
+        }
+
+        public static void buscaCategoria(ComboBox bx, DataGridView lista) {
+            query = "select * from produtos where categoria = @cat";
+            using(con = new SqlConnection(url)) {
+                using(cmd = new SqlCommand(query,con)) {
+                    try {
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@cat", bx.Text);
+                        reader = cmd.ExecuteReader();
+                        object[] rows = new object[reader.FieldCount];
+                        if (reader.HasRows) {
+
+                            lista.Columns.Clear();
+                            for (int i = 0; i < reader.FieldCount; i++) {
+                                lista.Columns.Add(reader.GetName(i), reader.GetName(i));
+                            }
+                            while (reader.Read()) {
+                                for (int i = 0; i < reader.FieldCount; i++) {
+                                    rows[i] = reader.GetValue(i);
+                                }
+                                lista.Rows.Add(rows);
+                            }
+
+                        }
+
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    }
+                } 
+            }
+        }
+
+        public static void VendaProduto(TextBox cod,TextBox vendida) {
+            query = " Update produtos set quantidade = @vendida where codProduto = @cod";
+            using (con = new SqlConnection(url)) {
+                using (cmd = new SqlCommand(query, con)) {
+                    try {
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@cod", cod.Text);
+                        cmd.Parameters.AddWithValue("@vendida", vendida.Text);
+                        cmd.ExecuteNonQuery();
+
+                    }catch(Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    }
                 }
             }
         }
