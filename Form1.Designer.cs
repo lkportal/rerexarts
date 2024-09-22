@@ -42,12 +42,10 @@
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
-            label2 = new Label();
             label1 = new Label();
             cbCategoria = new ComboBox();
             txtQuantidade = new TextBox();
             dtValidade = new DateTimePicker();
-            txtValor = new TextBox();
             txtNome = new TextBox();
             tabPage2 = new TabPage();
             btnAtualizaporcetagem = new Button();
@@ -57,7 +55,6 @@
             label17 = new Label();
             txtVendidosUp = new TextBox();
             label15 = new Label();
-            txtNumericoPorcetagemUp = new NumericUpDown();
             label13 = new Label();
             txtVendaCodProduto = new TextBox();
             tabPage3 = new TabPage();
@@ -86,12 +83,12 @@
             InformacaoCategoria = new ToolTip(components);
             toolTip2 = new ToolTip(components);
             Desconto = new ToolTip(components);
+            txtNumericoPorcetagemUp = new TextBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             panel1.SuspendLayout();
             tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)listaVendas).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)txtNumericoPorcetagemUp).BeginInit();
             tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)lista).BeginInit();
             tabPage4.SuspendLayout();
@@ -121,12 +118,10 @@
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
-            tabPage1.Controls.Add(label2);
             tabPage1.Controls.Add(label1);
             tabPage1.Controls.Add(cbCategoria);
             tabPage1.Controls.Add(txtQuantidade);
             tabPage1.Controls.Add(dtValidade);
-            tabPage1.Controls.Add(txtValor);
             tabPage1.Controls.Add(txtNome);
             tabPage1.Location = new Point(4, 34);
             tabPage1.Name = "tabPage1";
@@ -150,9 +145,9 @@
             label8.AutoSize = true;
             label8.Location = new Point(358, 158);
             label8.Name = "label8";
-            label8.Size = new Size(72, 25);
+            label8.Size = new Size(106, 25);
             label8.TabIndex = 14;
-            label8.Text = "Valor %";
+            label8.Text = "Porcetagem";
             // 
             // txtCompra
             // 
@@ -222,7 +217,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(14, 320);
+            label5.Location = new Point(14, 237);
             label5.Margin = new Padding(5, 5, 3, 0);
             label5.Name = "label5";
             label5.Size = new Size(88, 25);
@@ -232,7 +227,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(14, 237);
+            label4.Location = new Point(14, 168);
             label4.Margin = new Padding(5, 5, 3, 0);
             label4.Name = "label4";
             label4.Size = new Size(105, 25);
@@ -242,22 +237,12 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(14, 164);
+            label3.Location = new Point(14, 95);
             label3.Margin = new Padding(5, 5, 3, 0);
             label3.Name = "label3";
             label3.Size = new Size(121, 25);
             label3.TabIndex = 7;
             label3.Text = "Data Validade";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(14, 91);
-            label2.Margin = new Padding(5, 5, 3, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(152, 25);
-            label2.TabIndex = 6;
-            label2.Text = "Valor Por unidade";
             // 
             // label1
             // 
@@ -272,7 +257,7 @@
             // 
             cbCategoria.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             cbCategoria.FormattingEnabled = true;
-            cbCategoria.Location = new Point(14, 348);
+            cbCategoria.Location = new Point(14, 274);
             cbCategoria.Name = "cbCategoria";
             cbCategoria.Size = new Size(240, 38);
             cbCategoria.TabIndex = 4;
@@ -280,7 +265,7 @@
             // txtQuantidade
             // 
             txtQuantidade.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            txtQuantidade.Location = new Point(14, 265);
+            txtQuantidade.Location = new Point(14, 196);
             txtQuantidade.Name = "txtQuantidade";
             txtQuantidade.Size = new Size(234, 37);
             txtQuantidade.TabIndex = 3;
@@ -290,20 +275,10 @@
             // 
             dtValidade.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             dtValidade.Format = DateTimePickerFormat.Short;
-            dtValidade.Location = new Point(14, 192);
+            dtValidade.Location = new Point(14, 123);
             dtValidade.Name = "dtValidade";
             dtValidade.Size = new Size(234, 37);
             dtValidade.TabIndex = 2;
-            // 
-            // txtValor
-            // 
-            txtValor.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            txtValor.Location = new Point(14, 119);
-            txtValor.Name = "txtValor";
-            txtValor.Size = new Size(233, 37);
-            txtValor.TabIndex = 1;
-            txtValor.KeyPress += txtValor_KeyPress;
-            txtValor.MouseUp += txtQunatidade_MouseUp;
             // 
             // txtNome
             // 
@@ -315,6 +290,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(txtNumericoPorcetagemUp);
             tabPage2.Controls.Add(btnAtualizaporcetagem);
             tabPage2.Controls.Add(btnAtualizaQuantidade);
             tabPage2.Controls.Add(btnBuscaVendas);
@@ -322,7 +298,6 @@
             tabPage2.Controls.Add(label17);
             tabPage2.Controls.Add(txtVendidosUp);
             tabPage2.Controls.Add(label15);
-            tabPage2.Controls.Add(txtNumericoPorcetagemUp);
             tabPage2.Controls.Add(label13);
             tabPage2.Controls.Add(txtVendaCodProduto);
             tabPage2.Location = new Point(4, 34);
@@ -335,12 +310,13 @@
             // 
             // btnAtualizaporcetagem
             // 
-            btnAtualizaporcetagem.Location = new Point(852, 34);
+            btnAtualizaporcetagem.Location = new Point(850, 41);
             btnAtualizaporcetagem.Name = "btnAtualizaporcetagem";
             btnAtualizaporcetagem.Size = new Size(112, 34);
             btnAtualizaporcetagem.TabIndex = 10;
             btnAtualizaporcetagem.Text = "Atualizar";
             btnAtualizaporcetagem.UseVisualStyleBackColor = true;
+            btnAtualizaporcetagem.Click += btnAtualizaporcetagem_Click;
             // 
             // btnAtualizaQuantidade
             // 
@@ -397,13 +373,6 @@
             label15.Size = new Size(106, 25);
             label15.TabIndex = 4;
             label15.Text = "Porcetagem";
-            // 
-            // txtNumericoPorcetagemUp
-            // 
-            txtNumericoPorcetagemUp.Location = new Point(666, 37);
-            txtNumericoPorcetagemUp.Name = "txtNumericoPorcetagemUp";
-            txtNumericoPorcetagemUp.Size = new Size(180, 31);
-            txtNumericoPorcetagemUp.TabIndex = 3;
             // 
             // label13
             // 
@@ -676,6 +645,14 @@
             Desconto.ToolTipIcon = ToolTipIcon.Info;
             Desconto.ToolTipTitle = "Informação Qunatidade";
             // 
+            // txtNumericoPorcetagemUp
+            // 
+            txtNumericoPorcetagemUp.Location = new Point(666, 41);
+            txtNumericoPorcetagemUp.Name = "txtNumericoPorcetagemUp";
+            txtNumericoPorcetagemUp.Size = new Size(178, 31);
+            txtNumericoPorcetagemUp.TabIndex = 11;
+            txtNumericoPorcetagemUp.KeyPress += txtNumericoPorcetagemUp_KeyPress;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -695,7 +672,6 @@
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)listaVendas).EndInit();
-            ((System.ComponentModel.ISupportInitialize)txtNumericoPorcetagemUp).EndInit();
             tabPage3.ResumeLayout(false);
             tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)lista).EndInit();
@@ -711,12 +687,10 @@
         private TextBox txtNome;
         private TabPage tabPage2;
         private TabPage tabPage3;
-        private Label label2;
         private Label label1;
         private ComboBox cbCategoria;
         private TextBox txtQuantidade;
         private DateTimePicker dtValidade;
-        private TextBox txtValor;
         private Label label4;
         private Label label3;
         private Label label5;
@@ -757,12 +731,12 @@
         private Label label13;
         private TextBox txtVendaCodProduto;
         private Label label15;
-        private NumericUpDown txtNumericoPorcetagemUp;
         private Label label17;
         private TextBox txtVendidosUp;
         private DataGridView listaVendas;
         private Button btnAtualizaporcetagem;
         private Button btnAtualizaQuantidade;
         private Button btnBuscaVendas;
+        private TextBox txtNumericoPorcetagemUp;
     }
 }

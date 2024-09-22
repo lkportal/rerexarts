@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace EstoqueProdutos.model.db {
    internal partial class  BDOperacoes {
@@ -19,28 +20,30 @@ namespace EstoqueProdutos.model.db {
         private static SqlConnection con;
         private static string query;
         private static string Auxiliar;
+        private static double AuxliarValores;
 
         private static Produtos produtos;
 
         public static string url = ConfigurationManager.ConnectionStrings["MinhaStringConexao"].ConnectionString;
 
-        public static void InserirDadosTable(TextBox nome, TextBox valor, DateTimePicker validade, TextBox quantidade, ComboBox categoria,TextBox valorVenda,TextBox valorCompra) {
-            query = "INSERT INTO  PRODUTOS (nome,valorunidade,datavalidade,quantidade,categoria,codproduto,valorvenda,valorcompra) values (" +
-                "@nome,@valorunidade,@datavalidade,@quantidade,@categoria,@cod,@venda,@comprar)";
+        public static void InserirDadosTable(TextBox nome, DateTimePicker validade, TextBox quantidade, ComboBox categoria,TextBox valorVenda,TextBox valorCompra) {
+            query = "INSERT INTO  PRODUTOS (nome,valorunidade,datavalidade,quantidade,categoria,codproduto,PORCETAGEM,valorcompra) values (" +
+                "@nome,@valorunidade,@datavalidade,@quantidade,@categoria,@cod,@porcetagem,@comprar)";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
                     try {
-                        var vl = Produtos.ValorVendaPorcetagem(valorVenda, valor);
+                        var vl = Produtos.ValorVendaPorcetagem( valorVenda,valorCompra);
                         con.Open();
-                        produtos = Produtos.VerificandoCampos(nome, valor, quantidade, categoria, validade,valorCompra,valorVenda);
+                        produtos = Produtos.VerificandoCampos(nome, quantidade, categoria, validade,valorCompra,valorVenda);
                         cmd.Parameters.AddWithValue("@nome", produtos.Nome);
-                        cmd.Parameters.AddWithValue("@valorunidade", produtos.PrecoUnidade);
+                        cmd.Parameters.AddWithValue("@valorunidade", vl);
                         cmd.Parameters.AddWithValue("@datavalidade", produtos.Validade);
                         cmd.Parameters.AddWithValue("@quantidade", produtos.Quantidade);
                         cmd.Parameters.AddWithValue("@categoria", produtos.Categoria);
                         cmd.Parameters.AddWithValue("@cod", produtos.CodigoProdutos);
                         cmd.Parameters.AddWithValue("@comprar", produtos.ValorComprar);
-                        cmd.Parameters.AddWithValue("@venda", vl);
+                        cmd.Parameters.AddWithValue("@porcetagem",valorVenda.Text);
+
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Produto Inserido");
 
@@ -49,7 +52,7 @@ namespace EstoqueProdutos.model.db {
 
                     } finally {
                         nome.Text = "";
-                        valor.Text = "";
+                       
                         quantidade.Text = "";
                         categoria.Text = "";
                         valorVenda.Text = "";
@@ -82,7 +85,7 @@ namespace EstoqueProdutos.model.db {
         }
 
         public static void TrazendoTodosProdutos(DataGridView lista) {
-            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,valorvenda as '%',(quantidade * valorunidade) as Total FROM PRODUTOS";
+            query = "SELECT nome,datavalidade,quantidade,categoria,codproduto,valorcompra,Porcetagem,valorUnidade, (quantidade * valorunidade) SomasUnidades FROM PRODUTOS";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
                     try {
@@ -129,7 +132,7 @@ namespace EstoqueProdutos.model.db {
         }
 
         public static void buscaCategoria(ComboBox bx, DataGridView lista) {
-            query = "select * from produtos where categoria = @cat";
+            query = "select nome,valorUnidade,quantidade,porcetagem,valorcompra from produtos where categoria = @cat";
             using(con = new SqlConnection(url)) {
                 using(cmd = new SqlCommand(query,con)) {
                     try {
@@ -182,7 +185,7 @@ namespace EstoqueProdutos.model.db {
         }
 
         public static void TrazeTodosProdutosPorCodigo(DataGridView lista, TextBox cod) {
-            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,valorvenda as '%',(quantidade * valorunidade) as Total FROM PRODUTOS where codProduto = @cod";
+            query = "SELECT nome,valorUnidade,datavalidade,quantidade,categoria,codproduto,valorcompra,porcetagem,(quantidade * valorunidade) as SomaTotalProduto FROM PRODUTOS where codProduto = @cod";
             using (con = new SqlConnection(url)) {
                 using (cmd = new SqlCommand(query, con)) {
                     try {
@@ -237,6 +240,83 @@ namespace EstoqueProdutos.model.db {
             }
         }
 
-       
+        public static void AtulizaPorcetagem(TextBox number) {
+            query = "UPDATE PRODUTOS SET porcetagem = @numero where codproduto = @cod";
+            using (con = new SqlConnection(url)) {
+                using (cmd = new SqlCommand(query, con)) {
+                    try {
+                        con.Open();
+                        cmd.Parameters.AddWithValue("@numero", number.Text);
+                        cmd.Parameters.AddWithValue("@cod", Auxiliar);
+                       
+                        cmd.ExecuteNonQuery();
+
+                    }catch(Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    } finally {
+                        number.Text = "";
+                    }
+                }
+            }
+        }
+
+        public static async Task AtualizaValoreUpdateAsync() {
+            string query = "select quantidade, porcetagem from Produtos where codProduto = @cod";
+
+            using (SqlConnection con = new SqlConnection(url)) {
+                using (SqlCommand cmd = new SqlCommand(query, con)) {
+                    try {
+                        // Abrir conexão de forma assíncrona
+                        await con.OpenAsync();
+
+                        // Adicionar o parâmetro
+                        cmd.Parameters.AddWithValue("@cod", Auxiliar);
+
+                        // Executar a leitura de forma assíncrona
+                        using (SqlDataReader reader = await cmd.ExecuteReaderAsync()) {
+                            if (await reader.ReadAsync()) {
+                                int quant = reader.GetInt32(0);
+                                double porce = reader.GetInt32(1);
+
+                                // Atualiza o valor auxiliar com o valor calculado
+                                AuxliarValores = Produtos.ValorVendaPorcetagem(porce, quant);
+                                MessageBox.Show(AuxliarValores.ToString());
+                            }
+                        }
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            }
+        }
+
+        public static async Task AtualizaValorUnidadeAsync() {
+            // Primeiro, atualizar os valores necessários antes de realizar a atualização no banco
+            await AtualizaValoreUpdateAsync();
+
+            string query = "UPDATE PRODUTOS SET valorUnidade = @numero where codproduto = @cod";
+
+            using (SqlConnection con = new SqlConnection(url)) {
+                using (SqlCommand cmd = new SqlCommand(query, con)) {
+                    try {
+                        // Abrir conexão de forma assíncrona
+                        await con.OpenAsync();
+
+                        // Adicionar os parâmetros
+                        cmd.Parameters.AddWithValue("@numero", AuxliarValores);
+                        cmd.Parameters.AddWithValue("@cod", Auxiliar);
+
+                        // Executar o comando de forma assíncrona
+                        await cmd.ExecuteNonQueryAsync();
+                    } catch (Exception ex) {
+                        MessageBox.Show(ex.Message);
+                    } finally {
+                        AuxliarValores = 0;
+                    }
+                }
+            }
+        }
+
+
     }
 }

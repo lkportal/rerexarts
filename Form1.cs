@@ -24,10 +24,10 @@ namespace EstoqueProdutos
 
         }
 
-        private  void btnCadastra_Click(object sender, EventArgs e) {
+        private void btnCadastra_Click(object sender, EventArgs e) {
 
-            BDOperacoes.InserirDadosTable(txtNome, txtValor, dtValidade, txtQuantidade, cbCategoria, txtVenda, txtCompra);
-            BDOperacoes.RelatorioTotalProdutos(labelTotalProduto);   
+            BDOperacoes.InserirDadosTable(txtNome, dtValidade, txtQuantidade, cbCategoria, txtVenda, txtCompra);
+            BDOperacoes.RelatorioTotalProdutos(labelTotalProduto);
         }
 
         private void btnAddcategoria_Click(object sender, EventArgs e) {
@@ -35,24 +35,6 @@ namespace EstoqueProdutos
             txtAddCategoria.Text = "";
         }
 
-        private void txtValor_KeyPress(object sender, KeyPressEventArgs e) {
-            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) && e.KeyChar != ',') {
-                // Se não for um desses, cancela a entrada
-                e.Handled = true;
-            }
-            else if (e.KeyChar == ',' && txtValor.Text.Contains(",")) {
-                // Impede a entrada de mais de uma vírgula
-                e.Handled = true;
-            }
-            else if (txtValor.Text.Contains(",")) {
-                // Verifica se já existe uma vírgula e impede mais de duas casas decimais
-                string[] parts = txtValor.Text.Split(',');
-                if (parts.Length > 1 && parts[1].Length >= 2 && !char.IsControl(e.KeyChar)) {
-                    // Impede a entrada se já houver duas casas decimais
-                    e.Handled = true;
-                }
-            }
-        }
         private void btnTrazendoTodosProdutos_Click(object sender, EventArgs e) {
             BDOperacoes.TrazendoTodosProdutos(lista);
         }
@@ -69,6 +51,7 @@ namespace EstoqueProdutos
                 var valor = lista.CurrentCell.RowIndex;
                 var cod = lista.Rows[valor].Cells["codProduto"].Value;
                 BDOperacoes.ExcluirDado(cod.ToString());
+                BDOperacoes.RelatorioTotalProdutos(labelTotalProduto);
                 lista.Rows.Clear();
                 cbBusca.Text = "";
             }
@@ -126,6 +109,19 @@ namespace EstoqueProdutos
                 MessageBox.Show("Informe a quantidade, se for 0 informe");
             }
 
+        }
+
+        private async void btnAtualizaporcetagem_Click(object sender, EventArgs e) {
+            BDOperacoes.AtulizaPorcetagem(txtNumericoPorcetagemUp);            
+          await  BDOperacoes.AtualizaValorUnidadeAsync();
+            listaVendas.Rows.Clear();
+        }
+
+        private void txtNumericoPorcetagemUp_KeyPress(object sender, KeyPressEventArgs e) {
+            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar) ) {
+                // Se não for um desses, cancela a entrada
+                e.Handled = true;
+            }
         }
     }
 }

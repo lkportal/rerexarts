@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace EstoqueProdutos.model {
     internal class Produtos {
-
+        private static double Auxiliar;
+        public static double ValorTotalAtualizadoPorcentagem;
         public string Nome { get; set; }
         public double PrecoUnidade { get; set; }
         public DateTime Validade { get; set; }
@@ -46,9 +47,9 @@ namespace EstoqueProdutos.model {
                 MessageBox.Show("A Quantidade não pode se menos ou igual a 0");
         }
 
-        public static Produtos VerificandoCampos(TextBox nome,TextBox preco,TextBox quantidade,ComboBox categoria,DateTimePicker validade,TextBox valorCompra, TextBox Valorvenda) {
+        public static Produtos VerificandoCampos(TextBox nome,TextBox quantidade,ComboBox categoria,DateTimePicker validade,TextBox valorCompra, TextBox Valorvenda) {
             string dataValidade;
-            if(!string.IsNullOrEmpty(nome.Text) && !string.IsNullOrEmpty(preco.Text) && !string.IsNullOrEmpty(quantidade.Text)  && !string.IsNullOrEmpty(categoria.Text) && !string.IsNullOrEmpty(valorCompra.Text) && !string.IsNullOrEmpty(Valorvenda.Text)) {
+            if(!string.IsNullOrEmpty(nome.Text) &&  !string.IsNullOrEmpty(quantidade.Text)  && !string.IsNullOrEmpty(categoria.Text) && !string.IsNullOrEmpty(valorCompra.Text) && !string.IsNullOrEmpty(Valorvenda.Text)) {
                 if(!string.IsNullOrEmpty(validade.Text)) {
                     dataValidade = validade.Text;
                 }
@@ -56,7 +57,7 @@ namespace EstoqueProdutos.model {
                     dataValidade = null;
                 }
                
-                return new Produtos() { Nome = nome.Text, PrecoUnidade = Double.Parse(preco.Text),Validade = DateTime.Parse(dataValidade), Quantidade = int.Parse(quantidade.Text), Categoria = categoria.Text, CodigoProdutos = GerarNumero(), ValorComprar = double.Parse(valorCompra.Text),ValorVenda = double.Parse(Valorvenda.Text) };
+                return new Produtos() { Nome = nome.Text, PrecoUnidade = Auxiliar,Validade = DateTime.Parse(dataValidade), Quantidade = int.Parse(quantidade.Text), Categoria = categoria.Text, CodigoProdutos = GerarNumero(), ValorComprar = double.Parse(valorCompra.Text),ValorVenda = double.Parse(Valorvenda.Text) };
             }
             else {
                 MessageBox.Show("Preencha os campos Obrigatórios: Nome, Valor,Quantidade, Categoria,Valor de Venda e Porcentagem de venda","Aviso");
@@ -81,10 +82,19 @@ namespace EstoqueProdutos.model {
             double valUnitario = double.Parse(valorUnitario.Text);            
             double percentual = valPorcentagem / 100;          
             double acrescimo = valUnitario * percentual;
-            return valUnitario + acrescimo;
+            Auxiliar = acrescimo;
+            return acrescimo;
+        }
+        public static double ValorVendaPorcetagem(double Porcetagemvalor, int valorUnitario) {
+            double valPorcentagem = Porcetagemvalor;
+            int valUnitario = valorUnitario;
+            double percentual = valPorcentagem / 100;
+            double acrescimo = valUnitario * percentual;
+            Auxiliar = acrescimo;
+            return acrescimo;
         }
 
 
-        }
+    }
     }
 
